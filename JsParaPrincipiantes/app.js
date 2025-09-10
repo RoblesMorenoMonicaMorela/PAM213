@@ -1,5 +1,9 @@
-let names = [1, 2, 3];
-
-for(let i=0; i < names.length; i++){
-    console.log(names[i]);
+function add(n1, n2){
+    console.log(n1, n2);
 }
+add(3,2);
+add(100,100);
+
+add(3,2);
+add(100,100);
+add(3123123123,132123123);
