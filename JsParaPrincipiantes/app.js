@@ -1,18 +1,6 @@
-//este código lo siguiente
-var nameuser = "john";
-let lastname = "carter";
+let name = 'John';
+let lastname = 'Carter';
 
-//reasignando el valor de la variable nameuser
+let completeName = name +' '+ lastname;
 
-nameuser = 'pepe';
-
-// cualquiercosas
-
-const PI = 3.1415;
-
-console.log(PI);
-
-// came1case
-
-let userName = 'gordon';
-
+console.log(completeName);
