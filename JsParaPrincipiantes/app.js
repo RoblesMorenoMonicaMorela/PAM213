@@ -1,6 +1,7 @@
-let name = 'John';
-let lastname = 'Carter';
+let passwordDB = 'pepe123'
 
-let completeName = name +' '+ lastname;
+let input = 'pepe123';
 
-console.log(completeName);
+let result = input == passwordDB;
+
+console.log(result);
