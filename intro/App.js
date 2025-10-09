@@ -1,6 +1,6 @@
 //1. imports: zona de importacones
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 
 //2. Main: Zona de componentes
@@ -9,7 +9,10 @@ export default function App() {
 
     <View style={styles.container}>
 
-      <Text>Hola Mundo React Native!!!</Text>{/*con shift+alt+a te dice cómo son los comentarios  */}
+      <Text>Contador: </Text>{/*con shift+alt+a te dice cómo son los comentarios  */}
+      {/*<Button></Button>*/}
+      <Button title='Agregar'/>
+
       <StatusBar style="auto" />
 
     </View>
