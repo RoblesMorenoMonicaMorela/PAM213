@@ -15,12 +15,12 @@ export default function App() {
       <Text style={styles.txt}>Contador: </Text>
       <Text style={styles.txt2}>{contador} </Text>{/*con shift+alt+a te dice cómo son los comentarios  */}
       {/*<Button></Button>*/}
-      <Button title='Agregar' onPress={()=>setContador(contador+1)}/>
-      <Button title='Quitar' onPress={()=>setContador(contador-1)}/>
-      <Button title='Reiniciar' onPress={()=>setContador(0)}/>
-
+      <View style={styles.buttonContainer}>
+      <Button color={'#394956ff'} title='Agregar' onPress={()=>setContador(contador+1)}/>
+      <Button color={'#394956ff'} title='Quitar' onPress={()=>setContador(contador-1)}/>
+      <Button color={'#394956ff'} title='Reiniciar' onPress={()=>setContador(0)}/>
+      </View>
       <StatusBar style="auto" />
-
     </View>
   );
 }
@@ -48,5 +48,12 @@ const styles = StyleSheet.create({
     fontWeight:700,
     fontStyle:'italic',
     textDecorationLine:'underline',
+  },
+  buttonContainer:{
+    marginTop:15,
+    flexDirection:'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap:10,
   },
 });
