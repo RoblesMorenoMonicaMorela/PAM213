@@ -15,6 +15,8 @@ export default function App() {
       <Text>Contador: {contador} </Text>{/*con shift+alt+a te dice cómo son los comentarios  */}
       {/*<Button></Button>*/}
       <Button title='Agregar' onPress={()=>setContador(contador+1)}/>
+      <Button title='Quitar' onPress={()=>setContador(contador-1)}/>
+      <Button title='Reiniciar' onPress={()=>setContador(contador-contador)}/>
 
       <StatusBar style="auto" />
 
