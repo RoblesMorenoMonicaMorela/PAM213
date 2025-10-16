@@ -1,9 +1,9 @@
 import { Text, StyleSheet, View } from 'react-native'
 
-export default function BotonesScreen() {
+export default function BackgroundScreen() {
     return (
       <View style={styles.container}>
-        <Text style={styles.txt2}>Próximamente por José María & equipo</Text>
+        <Text style={styles.txt2}>Próximamente por Guillermo & equipo</Text>
       </View>
     )
   }

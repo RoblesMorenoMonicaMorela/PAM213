@@ -1,13 +1,12 @@
 import { Text, StyleSheet, View } from 'react-native'
 
-export default function BotonesScreen() {
+export default function BottomSheetScreen() {
     return (
       <View style={styles.container}>
-        <Text style={styles.txt2}>Próximamente por José María & equipo</Text>
+        <Text style={styles.txt2}>Próximamente por Ruben Alejandro & equipo</Text>
       </View>
     )
   }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
