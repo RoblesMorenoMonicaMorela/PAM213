@@ -1,4 +1,4 @@
-import { Text, StyleSheet, View } from 'react-native'
+import { Text, StyleSheet, View, Button } from 'react-native'
 import React, { useState } from 'react'
 import ContadorScreen from './contadorScreen'
 import BotonesScreen from './BotonesScreen'
@@ -17,6 +17,8 @@ export default function MenuScreen() {
                 return (
                     <View>
                         <Text>Menú de Prácticas</Text>
+                        <Button title='Pract: Contador' onPress={()=>setScreen('contador')}/>{/* el valor que esté dentro de setScreen debe ser igual al del switch */}
+                        <Button title='Pract: Buttons' onPress={()=>setScreen('botones')}/>
                     </View>
                 )
     }
