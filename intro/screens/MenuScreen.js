@@ -9,6 +9,7 @@ import BottomSheetScreen from './BottomSheetScreen'
 import BackgroundScreen from './BackgroundScreen'
 import ScrollScreen from './ScrollScreen'
 import ModalScreen from './ModalScreen'
+import Repaso1Screen from './Repaso1Screen'
 
 export default function MenuScreen() {
 
@@ -33,6 +34,8 @@ export default function MenuScreen() {
         return <ScrollScreen />;
       case 'modal':
         return <ModalScreen />;
+      case 'repaso1':
+        return <Repaso1Screen />;
         case 'menu':
             default:
                 return (
@@ -48,6 +51,7 @@ export default function MenuScreen() {
                         <Button color={'#394956ff'} title='Pract: FlatList y Section List' onPress={()=>setScreen('list')}/>
                         <Button color={'#394956ff'} title='Pract: Modal' onPress={()=>setScreen('modal')}/>
                         <Button color={'#394956ff'} title='Pract: Bottom Sheet' onPress={()=>setScreen('bottomsheet')}/>
+                          <Button color={'#394956ff'} title='Repaso 1' onPress={()=>setScreen('repaso1')}/>
                           </View>
                     </View>
                 )
