@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {View,Text,StyleSheet,ImageBackground,Image,TouchableOpacity,StatusBar, Button, Alert, Platform, TextInput, Switch} from 'react-native';
+import { ScrollView } from 'react-native-web';
 
 // Las constantes de imágenes locales (require) ya están definidas.
 // ASUME que esta ruta es correcta respecto a la ubicación de App.js.
@@ -10,7 +11,7 @@ const LOGO_IMAGE = require('../assets/Recursos/Logo.jpg');
 export default function repaso1() {
   // 1. STATE: Controla si mostramos el SplashScreen (true) o la App principal (false)
   //se ponen imagenes para el ScrollView 
-  const images = [
+  const images=  [
     require('../assets/Recursos/Logo.jpg'),
     require('../assets/Recursos/Logo.jpg'),
     require('../assets/Recursos/Logo.jpg'),
@@ -18,7 +19,7 @@ export default function repaso1() {
     require('../assets/Recursos/Logo.jpg'),
     require('../assets/Recursos/Logo.jpg'),
   ];
-  const index = 0;
+ /*  const index = 0; */
   const [isLoading, setIsLoading] = useState(true);//se inicia la pantalla de carga
   const [nombre, setNombre]= useState('');
   const[email, setEmail]= useState(''); 
@@ -74,18 +75,66 @@ export default function repaso1() {
         <Text style={styles.welcome}>¡Mi Galería!</Text>
         {/* Implementar un ScrollView vertical que contenga mínimo 6 tarjetas de fotos */}
         {/* cada tarjeta con un ImageBackground con la fotografia */}
+    {/*     4. Cada tarjeta debe contener:
+- Un ImageBackground con la fotografia
+- El título de la foto
+- Una breve descripción
+- Un Button con el texto “Ver detalles” */}
+{/* <ScrollView styles = {styles.scroll} contentContainerStyle={styles.content} showsVerticalScrollIndicator={true}  persistentScrollbar={true} scrollEnabled={true}>
+  */}  
+  {/* las imágenes se ponen en el scrollview */}
 
-       {<ScrollView style={styles.scroll} contentContainerStyle={{alignItems: 'center', paddingVertical: 20}}>
-          {images.map((image, index) => (
-            <View key={index} style={styles.card}>
-              <Image source={image} style={styles.cardImage} resizeMode="cover"/>
-              <Text style={styles.cardText}>Foto {index + 1}</Text>
-            </View>
-          ))}
-        </ScrollView> } 
+
+
+  
+
+  {/*  {images.map((img, index) => (
+      <View key={index} style={styles.card}>
+        <ImageBackground source={img} style={styles.cardImage} resizeMode="cover">
+          <Text style={styles.cardText}>Foto {index + 1}</Text>
+          <Text style={styles.cardText}>Descripción de la foto {index + 1}</Text>
+          <Button
+            title="Ver detalles"
+            onPress={() => {
+              if (Platform.OS === 'web') {
+                alert(`Detalles de la foto ${index + 1}`);
+              } else {
+                Alert.alert('Detalles', `Detalles de la foto ${index + 1}`, [
+                  { text: 'Cancelar' }, { text: 'Cerrar' }
+                ]);
+              } 
+            }}
+          />
+        </ImageBackground>
+      </View>
+    ))} */}
        
               
       </View>
+
+          <ScrollView styles={styles.scroll} contentContainerStyle={styles.content} showsVerticalScrollIndicator={true} persistentScrollbar={true} scrollEnabled={true}>
+    {images.map((img, index) => (
+      <View key={index} style={styles.card}>
+        <ImageBackground source={img} style={styles.cardImage} resizeMode="cover">
+          <Text style={styles.cardText}>Foto {index + 1}</Text>
+          <Text style={styles.cardText}>Descripción de la foto {index + 1}</Text>
+          <Button
+            title="Ver detalles"
+            onPress={() => {
+              if (Platform.OS === 'web') {  
+                alert(`Detalles de la foto ${index + 1}`);
+              } else {
+                Alert.alert('Detalles',`Nombre: Foto ${index + 1}`  ,`Detalles de la foto ${index + 1}`, [
+                   { text: 'Cerrar' }
+                ]);
+              }
+            }}
+          />
+        </ImageBackground>
+      </View>
+    ))}
+  </ScrollView>
+
     </ImageBackground>
   );
 }
@@ -98,6 +147,22 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+   box: {
+    backgroundColor: '#82b6ed',
+    width:'90%',
+    padding: 20,
+    marginVertical: 10,
+    borderRadius: 15,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+  },
+   Text: {
+    fontSize: 18,
+    color: '#1f2937',
+    textAlign: 'center',
   },
   splashImageStyle: {
     opacity: 0.85,
@@ -200,6 +265,10 @@ switchText: {
     flex:1,
     marginRadius:10,
     backgroundColor:'#f9fafb',
+  },
+   content: {
+    alignItems: 'center',
+    paddingVertical: 15,
   },
 
 });
