@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {View,Text,StyleSheet,ImageBackground,Image,TouchableOpacity,StatusBar, Button, Alert, Platform, TextInput, Switch} from 'react-native';
 import { ScrollView } from 'react-native-web';
+//Robles Moreno Mónica Morela TIID213
 
 // Las constantes de imágenes locales (require) ya están definidas.
 // ASUME que esta ruta es correcta respecto a la ubicación de App.js.
@@ -118,6 +119,7 @@ export default function repaso1() {
         <ImageBackground source={img} style={styles.cardImage} resizeMode="cover">
           <Text style={styles.cardText}>Foto {index + 1}</Text>
           <Text style={styles.cardText}>Descripción de la foto {index + 1}</Text>
+
           <Button
             title="Ver detalles"
             onPress={() => {
