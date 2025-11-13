@@ -18,7 +18,7 @@ export default function BottomSheetScreen(){
 
       <Button
        title='Abrir BottomSheet'
-       onPress={handleOpenSheet}
+       onPress={handleOpenSheet} 
        color="#311c7cff"
        />
        <Button
@@ -37,7 +37,7 @@ export default function BottomSheetScreen(){
         <BottomSheetView style={styles.content}>
           <StatusBar barStyle="dark-content"/>
           <Image
-  source={require('../assets/Recursos/Recurso1.png')}
+  source={require('../assets/Recursos/gifs-garfield-1.gif')}
   style={styles.gifStyle}
   resizeMode="contain"
 />
