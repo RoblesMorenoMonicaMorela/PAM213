@@ -6,6 +6,7 @@ export default function BotonesScreen()  {
   const [modoOscruro, setModoOscuro] = useState(false);
   const [notificaciones, setNotificaciones] = useState(false);
   const [ubicacion, setUbicacion] = useState(false);
+  const [aceptaTyC, setAcepta] = useState(false);
 
   const tema=modoOscruro ? styles.darkTheme: styles.lightTheme; //comparación terniaria o valor de comparacion u operador terniario u operador condicional
   const texto=modoOscruro ? styles.textDark : styles.textLight; 
