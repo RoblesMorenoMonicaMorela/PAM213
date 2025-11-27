@@ -4,19 +4,17 @@ import * as SQLite from 'expo-sqlite';
 class DatabaseService {
   constructor() {
     this.db = null;
-    this.storageKey = 'usuarios'; 
+    this.storageKey = 'usuarios';
   }
 
   async initialize() {
     if (Platform.OS === 'web') {
       console.log('Usando LocalStorage para web');
     } else {
-      console.log('Usando SQLite para movil');
-      // 1. Abrir la BD
+      console.log('Usando SQLite para móvil');
+
       this.db = await SQLite.openDatabaseAsync('miapp.db');
-      
-      // Usar 'execAsync' en lugar de 'loadExtensionAsync'
-      // execAsync es para ejecutar sentencias SQL de estructura (DDL)
+
       await this.db.execAsync(`
         PRAGMA journal_mode = WAL;
         CREATE TABLE IF NOT EXISTS usuarios (
@@ -25,6 +23,7 @@ class DatabaseService {
           fecha_creacion TEXT
         );
       `);
+
       console.log('Tabla usuarios verificada');
     }
   }
@@ -50,21 +49,54 @@ class DatabaseService {
       localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
       return nuevoUsuario;
     } else {
-      //  Pasar el parámetro 'nombre' a la consulta
+      const fecha = new Date().toISOString();
+
       const result = await this.db.runAsync(
-        'INSERT INTO usuarios (nombre, fecha_creacion) VALUES (?, ?)', 
-        nombre, 
-        new Date().toISOString() // Pasamos también la fecha para que coincida con la web
+        'INSERT INTO usuarios (nombre, fecha_creacion) VALUES (?, ?)',
+        [nombre, fecha]
       );
 
       return {
         id: result.lastInsertRowId,
         nombre,
-        fecha_creacion: new Date().toISOString()
+        fecha_creacion: fecha
       };
+    }
+  }
+
+  async delete(id) {
+    if (Platform.OS === 'web') {
+      const usuarios = await this.getAll();
+      const filtrados = usuarios.filter(u => u.id !== id);
+      localStorage.setItem(this.storageKey, JSON.stringify(filtrados));
+      return true;
+    } else {
+      return await this.db.runAsync(
+        'DELETE FROM usuarios WHERE id = ?',
+        [id]
+      );
+    }
+  }
+
+// ACTUALIZAR 
+  async update(id, nuevoNombre) {
+    if (Platform.OS === 'web') {
+      const usuarios = await this.getAll();
+      // Buscamos el índice del usuario
+      const index = usuarios.findIndex(u => u.id === id);
+      if (index !== -1) {
+        usuarios[index].nombre = nuevoNombre;
+        localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
+      }
+    } else {
+   
+      await this.db.runAsync(
+        'UPDATE usuarios SET nombre = ? WHERE id = ?',
+        nuevoNombre,
+        id
+      );
     }
   }
 }
 
-// Exportar instancia de la clase 
 export default new DatabaseService();

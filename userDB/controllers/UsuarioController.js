@@ -6,7 +6,6 @@ export class UsuarioController {
     this.listeners = [];
   }
 
-  // Inicializar el controlador con el Service
   async initialize() {
     await DatabaseService.initialize();
   }
@@ -16,23 +15,19 @@ export class UsuarioController {
       const data = await DatabaseService.getAll();
       return data.map(u => new Usuario(u.id, u.nombre, u.fecha_creacion));
     } catch (error) {
-      console.error(' Error al obtener usuarios:', error);
+      console.error('Error al obtener usuarios:', error);
       throw new Error('No se pudieron cargar los usuarios');
     }
   }
 
   async crearUsuario(nombre) {
     try {
-      // 1. Validar datos
       Usuario.validar(nombre);
 
-      // 2. Insertar en BD
       const nuevoUsuario = await DatabaseService.add(nombre.trim());
 
-      // 3. Notificar a los observadores
       this.notifyListeners();
 
-      // 4. Retornar usuario creado
       return new Usuario(
         nuevoUsuario.id,
         nuevoUsuario.nombre,
@@ -44,7 +39,27 @@ export class UsuarioController {
     }
   }
 
-  // Sistema de observadores para actualizar la vista automáticamente
+async editarUsuario(id, nuevoNombre) {
+    try {
+      // 1. Validar (usamos la misma validación que al crear)
+      Usuario.validar(nuevoNombre);
+
+      // 2. Llamar al servicio
+      await DatabaseService.update(id, nuevoNombre.trim());
+
+      // 3. Notificar para refrescar la pantalla
+      this.notifyListeners();
+    } catch (error) {
+      console.error('Error al editar:', error);
+      throw error;
+    }
+  }
+
+  async eliminarUsuario(id) {
+    await DatabaseService.delete(id);
+    this.notifyListeners();
+  }
+
   addListener(callback) {
     this.listeners.push(callback);
   }
