@@ -22,7 +22,11 @@ export default function InsertUsuarioScreen() {
       const data = await controller.obtenerUsuarios();
       setUsuarios(data);
     } catch (error) {
-      Alert.alert('Error', error.message);
+      if (Platform.OS === 'web') {
+        alert('Error: ' + error.message);
+      } else {
+        Alert.alert('Error', error.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -35,24 +39,66 @@ export default function InsertUsuarioScreen() {
       await controller.crearUsuario(nombre);
       setNombre('');
     } catch (error) {
-      Alert.alert('Error', error.message);
+      if (Platform.OS === 'web') {
+        alert('Error: ' + error.message);
+      } else {
+        Alert.alert('Error', error.message);
+      }
     } finally {
       setGuardando(false);
     }
   };
 
+  // --- FUNCIÓN CORREGIDA PARA WEB Y MÓVIL ---
   const eliminarUsuario = async (id) => {
     if (guardando) return;
-    try {
-      setGuardando(true);
-      await controller.eliminarUsuario(id);
-      Alert.alert("Usuario eliminado");
-    } catch (e) {
-      Alert.alert("Error", e.message);
-    } finally {
-      setGuardando(false);
+
+    // CASO 1: ESTAMOS EN WEB
+    if (Platform.OS === 'web') {
+      // Usamos la confirmación nativa del navegador
+      const confirmacion = window.confirm("¿Estás seguro de que quieres eliminar este usuario?");
+      
+      if (confirmacion) {
+        try {
+          setGuardando(true);
+          await controller.eliminarUsuario(id);
+          // alert("Usuario eliminado"); // Opcional
+        } catch (e) {
+          alert("Error: " + e.message);
+        } finally {
+          setGuardando(false);
+        }
+      }
+      return; // Terminamos aquí si es web
     }
+
+    // CASO 2: ESTAMOS EN MÓVIL (Android/iOS)
+    Alert.alert(
+      "Confirmar eliminación",
+      "¿Estás seguro de que quieres eliminar este usuario?",
+      [
+        {
+          text: "Cancelar",
+          style: "cancel"
+        },
+        {
+          text: "Eliminar",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              setGuardando(true);
+              await controller.eliminarUsuario(id);
+            } catch (e) {
+              Alert.alert("Error", e.message);
+            } finally {
+              setGuardando(false);
+            }
+          }
+        }
+      ]
+    );
   };
+  // ------------------------------------------
 
   const abrirModalEditar = (usuario) => {
     setUsuarioAEditar(usuario);
@@ -68,7 +114,11 @@ export default function InsertUsuarioScreen() {
         setUsuarioAEditar(null);
       }
     } catch (e) {
-      Alert.alert("Error", e.message);
+      if (Platform.OS === 'web') {
+        alert("Error: " + e.message);
+      } else {
+        Alert.alert("Error", e.message);
+      }
     }
   };
 
@@ -103,11 +153,11 @@ export default function InsertUsuarioScreen() {
 
       <View style={styles.actionButtons}>
         <TouchableOpacity onPress={() => abrirModalEditar(item)}>
-          <Text style={styles.refreshText}>Editar</Text>
+          <Text style={{color:'blue', fontWeight:'bold'}}>Editar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => eliminarUsuario(item.id)}>
-          <Text style={styles.refreshText}>Eliminar</Text>
+          <Text style={{color:'blue', fontWeight:'bold'}}>Eliminar</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -148,7 +198,7 @@ export default function InsertUsuarioScreen() {
             style={styles.refreshButton}
             onPress={cargarUsuarios}
           > 
-            <Text style={styles.refreshText}>Recargar</Text>
+            <Text style={{color:'blue' }}>Recargar</Text>
           </TouchableOpacity>
         </View>
 
